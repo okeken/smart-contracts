@@ -26,7 +26,7 @@ contract Domains is ERC721URIStorage {
 
     constructor(string memory _tld)
         payable
-        ERC721("Okeken Domain Name Service", "oke")
+        ERC721("Oke Domain Name Service", "oke")
     {
         owner = payable(msg.sender);
         tld = _tld;
@@ -61,7 +61,7 @@ contract Domains is ERC721URIStorage {
             abi.encodePacked(
                 '{"name": "',
                 _name,
-                '", "description": "A domain on the Okeken domain name service", "image": "data:image/svg+xml;base64,',
+                '", "description": "A domain on the Oke domain name service", "image": "data:image/svg+xml;base64,',
                 Base64.encode(bytes(finalSvg)),
                 '","length":"',
                 strLen,
@@ -100,8 +100,6 @@ contract Domains is ERC721URIStorage {
             return 1 * 10**15; // To charge smaller amounts, reduce the decimals. This is 0.001
         }
     }
-
-    // Other functions unchanged
 
     function getAddress(string calldata name) public view returns (address) {
         // Check that the owner is the transaction sender
