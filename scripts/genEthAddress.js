@@ -2,7 +2,7 @@ var fs = require("fs");
 var ethers = require("ethers");
 var crypto = require("crypto");
 const { getRoot } = require("./genMerkleeRoot");
-const { verifyRoot } = require("./verifiyRoot");
+const { verifyRoot, readAddress } = require("./verifiyRoot");
 
 function genAddress() {
   const id = crypto.randomBytes(32).toString("hex");
@@ -31,9 +31,9 @@ const computeAddress = (length = 5) => {
   });
 };
 
-function main() {
+async function main() {
   computeAddress();
   getRoot(addressList);
-  verifyRoot(addressList); // "0x786BfF269d10812Ac61c0c197E3Fc4215cabc3d9" use an address as second argument to check for eligibility, it's  using the second gen address by default
+  verifyRoot(); // "0x786BfF269d10812Ac61c0c197E3Fc4215cabc3d9" as an argument to check for eligibility, it's  using the second gen address by default
 }
 main();

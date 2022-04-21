@@ -2,9 +2,6 @@
 pragma solidity ^0.8.0;
 import "./utils/reEntrancy.sol";
 
-// Todo => create array of depositors
-// and clear their balance when admin withdraws all funds
-
 contract EthWallet is ReEntrancy {
     address public owner;
 

@@ -9,7 +9,6 @@ import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 contract SolidNft is ERC721, Ownable {
     using Strings for uint256;
     using Counters for Counters.Counter;
-
     Counters.Counter private supply;
 
     // Our rootHash
@@ -49,7 +48,10 @@ contract SolidNft is ERC721, Ownable {
     }
 
     function claimCheck() public view {
+        if(amountMintedPreSale[msg.sender] >= mintAmtAllowedPresale) {
+            require(!preSale, "minted allowed presale");
         require(!whiteListClaimed[msg.sender], "whitelist claimed");
+        }
     }
 
     function totalSupply() public view returns (uint256) {
@@ -74,6 +76,9 @@ contract SolidNft is ERC721, Ownable {
         if (preSale) {
             claimCheck();
             checkValidity(_merkleProof);
+            if(amountMintedPreSale[msg.sender] + _mintAmount > mintAmtAllowedPresale) {
+                require(false, "exceed amt mints");
+            }
             whiteListClaimed[msg.sender] = true;
             require(
                 amountMintedPreSale[msg.sender] <= mintAmtAllowedPresale,
