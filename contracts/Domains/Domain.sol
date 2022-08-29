@@ -15,14 +15,18 @@ contract Domains is ERC721URIStorage {
     string public tld;
 
     // We'll be storing our NFT images on chain as SVGs
-    string svgPartOne =
+    string public svgPartOne =
         '<svg viewBox="0 0 240 80" xmlns="http://www.w3.org/2000/svg" style="background-color:#0f2027" fill="white" font-family="sans-serif" ><text x="2" y="0" class="small">https://</text><text x="50" y="0" class="small">';
-    string svgPartTwo = "</text></svg>";
+    string public svgPartTwo = "</text></svg>";
 
     mapping(string => address) public domains;
     mapping(string => string) public records;
 
     address payable public owner;
+    string public description = "A domain on the Oke domain name service";
+
+    // event
+    event DomainCreated(string _domain, uint256 _amt, uint256 _tokenId);
 
     constructor(string memory _tld)
         payable
@@ -86,6 +90,7 @@ contract Domains is ERC721URIStorage {
         domains[name] = msg.sender;
 
         _tokenIds.increment();
+        emit DomainCreated(name, _price, newRecordId);
     }
 
     // This function will give us the price of a domain based on length

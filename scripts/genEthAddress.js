@@ -15,18 +15,26 @@ function genAddress() {
 }
 
 const addressList = [];
-const computeAddress = (length = 5) => {
+let sec = "";
+const computeAddress = (length = 10000) => {
   for (let i = 0; i < length; i++) {
     const { privateKey, wallet } = genAddress();
+    sec += `${wallet.address},`;
     addressList.push({
       address: wallet.address,
       privateKey,
     });
   }
 
+  console.log(sec);
+
   const addressString = JSON.stringify(addressList);
+  const address = JSON.stringify(sec);
 
   fs.writeFile("addressList.json", addressString, function (err, result) {
+    if (err) console.log("error", err);
+  });
+  fs.writeFile("address.js", address, function (err, result) {
     if (err) console.log("error", err);
   });
 };

@@ -38,6 +38,14 @@ module.exports = {
           ? [process.env.PRIVATE_KEY_KOVAN]
           : [],
     },
+    rinkeby: {
+      url: process.env.RINKEBY_URL || "",
+      accounts:
+        process.env.PRIVATE_KEY_RINKEBY !== undefined
+          ? [process.env.PRIVATE_KEY_RINKEBY]
+          : [],
+    },
+    
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
